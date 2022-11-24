@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int data; 
+    struct node *next; 
+}node;
+
+typedef struct stack 
+{
+    node *top;
+}stack;
+
+
+int empty(stack *s) 
+{
+    return (s->top == NULL);
+}
+
+void push(stack *s, int value)
+{
+    node *tmp;
+    tmp = malloc(sizeof(node));
+    tmp->data = value;
+    tmp->next = s->top;
+    s->top = tmp;
+}
+
+int pop(stack *s)
+{
+    node *tmp;
+    tmp = malloc(sizeof(node));
+    int n = s->top->data;
+    tmp = s->top;
+    s->top = s->top->next;
+    free(tmp);
+    return n;
+}
+
+
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    stack s;
+    (&s)->top = NULL; 
+    
+    int arr[n]; 
+    int count=0;
+    
+    for (int i=0; i<n; i++){
+        char oper;
+        scanf ("%c", &oper);
+        
+        while(oper != '+' &&  oper != '-'){
+            scanf ("%c", &oper);
+        }
+        
+        if (oper == '+'){
+            int value;
+            scanf("%d", &value);
+            push(&s, value);
+        } else { 
+            arr[count] = pop(&s);
+            count ++;
+        }
+        
+    }
+    
+    for (int i = 0; i < count; i++){
+        printf ("%d \n", arr[i]);
+    }
+    return 0;
+}
